@@ -1,4 +1,4 @@
-const CACHE_NAME = 'gct-csv-cache-v1';
+const CACHE_NAME = 'gct-csv-cache-v1_v2';
 const ASSETS = [
   './',
   './index.html',

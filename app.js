@@ -89,7 +89,10 @@ function openCardDialog(card=null){
   $('#fNotes').value=card?.notes||'';
   $('#fIcon').value=card?.icon||'';
   dlg.showModal();
-  $('#saveCardBtn').onclick=()=>{
+  
+  $("#cancelCardBtn").onclick = () => dlg.close("cancel");
+  dlg.addEventListener("click", (e) => { if (e.target === dlg) dlg.close("backdrop"); });
+$('#saveCardBtn').onclick=()=>{
     const merchant=$('#fMerchant').value.trim();
     const last4=$('#fLast4').value.trim();
     const pin4=$('#fPin4').value.trim();
@@ -113,7 +116,10 @@ function openTxDialog(card,action='Spend'){
   $('#txAction').value=action; $('#txAmount').value=''; $('#txNote').value='';
   $$('.pill').forEach(p=>{ p.classList.toggle('active', p.dataset.act===action); p.onclick=()=>openTxDialog(card,p.dataset.act); });
   dlg.showModal();
-  $('#txApplyBtn').onclick=()=>{
+  
+  $("#txCancelBtn").onclick = () => dlg.close("cancel");
+  dlg.addEventListener("click", (e) => { if (e.target === dlg) dlg.close("backdrop"); });
+$('#txApplyBtn').onclick=()=>{
     const act=$('#txAction').value; const amt=Number($('#txAmount').value||0); const note=$('#txNote').value.trim();
     if(!(amt>0)) return;
     if(act==='Spend' && amt>Number(card.balance||0)+1e-9){ alert('Cannot spend more than current balance.'); return; }
