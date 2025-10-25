@@ -4,16 +4,16 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Gift Card Tracker</title>
-  <link rel="manifest" href="manifest.json">
+  <link rel="manifest" href="manifest.json?v=sync1">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <link rel="apple-touch-icon" href="icon-512.png">
   <meta name="theme-color" content="#ff7a00">
-  <link rel="stylesheet" href="styles.css?v=3">
+  <link rel="stylesheet" href="styles.css?v=sync1">
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./service-worker.js');
+        navigator.serviceWorker.register('./service-worker.js?v=sync1');
       });
     }
   </script>
@@ -34,6 +34,10 @@
         <input type="checkbox" id="hideArchived">
         <span>Hide archived</span>
       </label>
+      <span class="divider"></span>
+      <button id="openSync">Sync Settings</button>
+      <button id="syncNowBtn" title="Sync now" class="secondary">Sync</button>
+      <span id="syncStatus" class="muted"></span>
     </div>
   </header>
 
@@ -61,9 +65,28 @@
     </table>
   </main>
 
+  <dialog id="syncDialog">
+    <form method="dialog" id="syncForm" novalidate>
+      <button type="button" id="syncDlgX" aria-label="Close" class="xbtn">×</button>
+      <h3>GitHub Gist Sync</h3>
+      <p class="muted">Store your data in a private (secret) Gist. Create a Personal Access Token with <b>gist</b> scope, and paste it here with your Gist ID.</p>
+      <label>GitHub Token (gist scope)<input id="ghToken" placeholder="ghp_... or fine-grained token"></label>
+      <label>Gist ID<input id="ghGistId" placeholder="e.g. 3f5a... (not the full URL)"></label>
+      <label>Filename in gist<input id="ghFile" value="giftcards.json"></label>
+      <div class="row">
+        <label class="toggle small"><input type="checkbox" id="autoSync"><span>Auto-sync on changes</span></label>
+      </div>
+      <menu>
+        <button type="button" id="syncCancelBtn" class="secondary">Close</button>
+        <button id="saveSync" value="default">Save</button>
+      </menu>
+      <p class="muted">Tip: Create a <b>secret</b> gist at <a href="https://gist.github.com/" target="_blank" rel="noreferrer">gist.github.com</a>, then copy its ID (the long hex in the URL). Keep your token safe; it is stored only on this device.</p>
+    </form>
+  </dialog>
+
   <dialog id="cardDialog">
     <form method="dialog" id="cardForm" novalidate>
-      <button type="button" id="cardDlgX" aria-label="Close" style="position:absolute;right:12px;top:12px;background:#2a3244;border:none;color:#dfe7f3;border-radius:10px;padding:4px 8px;cursor:pointer;">×</button>
+      <button type="button" id="cardDlgX" aria-label="Close" class="xbtn">×</button>
       <h3 id="dlgTitle">Add Card</h3>
       <label>Merchant* <input id="fMerchant" required></label>
       <label>Card Last 4* <input id="fLast4" required pattern=".{1,}"></label>
@@ -88,7 +111,7 @@
 
   <dialog id="txDialog">
     <form method="dialog" id="txForm" novalidate>
-      <button type="button" id="txDlgX" aria-label="Close" style="position:absolute;right:12px;top:12px;background:#2a3244;border:none;color:#dfe7f3;border-radius:10px;padding:4px 8px;cursor:pointer;">×</button>
+      <button type="button" id="txDlgX" aria-label="Close" class="xbtn">×</button>
       <h3 id="txTitle">Adjust Balance</h3>
       <div class="pillbox">
         <button class="pill" data-act="Spend" type="button">Spend</button>
@@ -105,9 +128,9 @@
   </dialog>
 
   <footer>
-    <small>All data is local to your browser (offline-ready). Export JSON or CSV anytime for backup.</small>
+    <small>Local-first. Optional sync via your private GitHub Gist. Export JSON/CSV for backups.</small>
   </footer>
 
-  <script src="app.js?v=3"></script>
+  <script src="app.js?v=sync1"></script>
 </body>
 </html>

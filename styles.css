@@ -1,5 +1,7 @@
-*{box-sizing:border-box} :root{--bg:#0f1115;--card:#151923;--ink:#e8ecf3;--muted:#9aa3b2;--accent:#ff7a00;--accent-2:#ff9c48;--danger:#ff6464}
-html,body{height:100%} body{margin:0;background:linear-gradient(180deg,#0d0f14,#0b0d11);color:var(--ink);font:14px/1.4 -apple-system,system-ui,Segoe UI,Roboto,Inter,Helvetica,Arial}
+*{box-sizing:border-box}
+:root{--bg:#0f1115;--card:#151923;--ink:#e8ecf3;--muted:#9aa3b2;--accent:#ff7a00;--danger:#ff6464}
+html,body{height:100%}
+body{margin:0;background:linear-gradient(180deg,#0d0f14,#0b0d11);color:var(--ink);font:14px/1.4 -apple-system,system-ui,Segoe UI,Roboto,Inter,Helvetica,Arial}
 header{display:flex;gap:12px;align-items:center;justify-content:space-between;padding:16px 18px;background:#0b0f17;border-bottom:1px solid #1c2230;position:sticky;top:0;z-index:5}
 h1{margin:0;font-size:18px;letter-spacing:.2px}
 .actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
@@ -23,7 +25,7 @@ tbody tr td:last-child{border-right:1px solid #0b0d13}
 .low{background:#251314;border-color:#4b2020;color:#ffb0b0}
 .expSoon{background:#241c11;border-color:#5a4020;color:#ffd29a}
 .row{display:flex;gap:10px;align-items:center}
-dialog{background:#0f1320;border:1px solid #29334a;border-radius:16px;color:var(--ink);padding:16px 16px;max-width:520px}
+dialog{background:#0f1320;border:1px solid #29334a;border-radius:16px;color:var(--ink);padding:16px 16px;max-width:520px;position:relative}
 dialog::backdrop{background:rgba(0,0,0,.45)}
 dialog h3{margin:0 0 8px 0}
 dialog label{display:block;margin:8px 0}
@@ -37,3 +39,4 @@ footer{padding:16px 18px;color:#7d8798;border-top:1px solid #1c2230}
 .controls{display:flex;gap:6px;justify-content:flex-end}
 .controls button{padding:8px 10px;border-radius:10px}
 .muted{color:#9aa3b2;font-size:12px}
+.xbtn{position:absolute;right:12px;top:12px;background:#2a3244;border:none;color:#dfe7f3;border-radius:10px;padding:4px 8px;cursor:pointer}
