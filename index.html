@@ -9,7 +9,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <link rel="apple-touch-icon" href="icon-512.png">
   <meta name="theme-color" content="#ff7a00">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=3">
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
@@ -62,7 +62,8 @@
   </main>
 
   <dialog id="cardDialog">
-    <form method="dialog" id="cardForm">
+    <form method="dialog" id="cardForm" novalidate>
+      <button type="button" id="cardDlgX" aria-label="Close" style="position:absolute;right:12px;top:12px;background:#2a3244;border:none;color:#dfe7f3;border-radius:10px;padding:4px 8px;cursor:pointer;">×</button>
       <h3 id="dlgTitle">Add Card</h3>
       <label>Merchant* <input id="fMerchant" required></label>
       <label>Card Last 4* <input id="fLast4" required pattern=".{1,}"></label>
@@ -86,7 +87,8 @@
   </dialog>
 
   <dialog id="txDialog">
-    <form method="dialog" id="txForm">
+    <form method="dialog" id="txForm" novalidate>
+      <button type="button" id="txDlgX" aria-label="Close" style="position:absolute;right:12px;top:12px;background:#2a3244;border:none;color:#dfe7f3;border-radius:10px;padding:4px 8px;cursor:pointer;">×</button>
       <h3 id="txTitle">Adjust Balance</h3>
       <div class="pillbox">
         <button class="pill" data-act="Spend" type="button">Spend</button>
@@ -96,7 +98,7 @@
       <label>Amount* <input id="txAmount" type="number" step="0.01" required></label>
       <label>Note <input id="txNote"></label>
       <menu>
-        <button type="button" id="cancelCardBtn" class="secondary">Cancel</button>
+        <button type="button" id="txCancelBtn" class="secondary">Cancel</button>
         <button id="txApplyBtn" value="default">Apply</button>
       </menu>
     </form>
@@ -106,6 +108,6 @@
     <small>All data is local to your browser (offline-ready). Export JSON or CSV anytime for backup.</small>
   </footer>
 
-  <script src="app.js"></script>
+  <script src="app.js?v=3"></script>
 </body>
 </html>

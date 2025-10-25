@@ -90,7 +90,13 @@ function openCardDialog(card=null){
   $('#fIcon').value=card?.icon||'';
   dlg.showModal();
   
+  
+  // Cancel & close handlers (always bypass validation)
   $("#cancelCardBtn").onclick = () => dlg.close("cancel");
+  $("#cardDlgX").onclick = () => dlg.close("x");
+  dlg.addEventListener("click", (e) => { if (e.target === dlg) dlg.close("backdrop"); }, { once: true });
+  dlg.addEventListener("cancel", (e) => { e.preventDefault(); dlg.close("esc"); }, { once: true });
+$("#cancelCardBtn").onclick = () => dlg.close("cancel");
   dlg.addEventListener("click", (e) => { if (e.target === dlg) dlg.close("backdrop"); });
 $('#saveCardBtn').onclick=()=>{
     const merchant=$('#fMerchant').value.trim();
@@ -117,7 +123,13 @@ function openTxDialog(card,action='Spend'){
   $$('.pill').forEach(p=>{ p.classList.toggle('active', p.dataset.act===action); p.onclick=()=>openTxDialog(card,p.dataset.act); });
   dlg.showModal();
   
+  
+  // Cancel & close handlers (always bypass validation)
   $("#txCancelBtn").onclick = () => dlg.close("cancel");
+  $("#txDlgX").onclick = () => dlg.close("x");
+  dlg.addEventListener("click", (e) => { if (e.target === dlg) dlg.close("backdrop"); }, { once: true });
+  dlg.addEventListener("cancel", (e) => { e.preventDefault(); dlg.close("esc"); }, { once: true });
+$("#txCancelBtn").onclick = () => dlg.close("cancel");
   dlg.addEventListener("click", (e) => { if (e.target === dlg) dlg.close("backdrop"); });
 $('#txApplyBtn').onclick=()=>{
     const act=$('#txAction').value; const amt=Number($('#txAmount').value||0); const note=$('#txNote').value.trim();
