@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Gift Card Tracker</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="apple-touch-icon" href="icon-512.png">
+  <meta name="theme-color" content="#ff7a00">
+  <link rel="stylesheet" href="styles.css">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./service-worker.js');
+      });
+    }
+  </script>
+</head>
+<body>
+  <header>
+    <h1>Gift Card Tracker</h1>
+    <div class="actions">
+      <button id="newCardBtn">Add Card</button>
+      <button id="exportJsonBtn" class="secondary">Export JSON</button>
+      <label class="import-label">
+        Import JSON <input type="file" id="importFile" accept=".json" hidden>
+      </label>
+      <span class="divider"></span>
+      <button id="exportCardsCsvBtn">Export Cards CSV</button>
+      <button id="exportTxCsvBtn">Export Spend Log CSV</button>
+      <label class="toggle">
+        <input type="checkbox" id="hideArchived">
+        <span>Hide archived</span>
+      </label>
+    </div>
+  </header>
+
+  <section class="toolbar">
+    <input id="search" placeholder="Search merchant, last4, notes…">
+    <div class="totals"><span id="totalActive">$0.00</span> active</div>
+  </section>
+
+  <main>
+    <table id="cards">
+      <thead>
+        <tr>
+          <th>Icon</th>
+          <th>Merchant</th>
+          <th>Last4</th>
+          <th>Balance</th>
+          <th>Expiration</th>
+          <th>Notes</th>
+          <th>Archived</th>
+          <th>Updated</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="cardsBody"></tbody>
+    </table>
+  </main>
+
+  <dialog id="cardDialog">
+    <form method="dialog" id="cardForm">
+      <h3 id="dlgTitle">Add Card</h3>
+      <label>Merchant* <input id="fMerchant" required></label>
+      <label>Card Last 4* <input id="fLast4" required pattern=".{1,}"></label>
+      <label>PIN Last 4 <input id="fPin4"></label>
+      <label>Balance* <input id="fBalance" type="number" step="0.01" required></label>
+      <label class="row">
+        <span>Expiration (YYYY-MM-DD)</span>
+        <input id="fExp" placeholder="YYYY-MM-DD">
+        <label class="toggle small">
+          <input type="checkbox" id="fNoExp">
+          <span>No Expiration</span>
+        </label>
+      </label>
+      <label>Notes <textarea id="fNotes" rows="3"></textarea></label>
+      <label>Icon label (e.g., [shop]) <input id="fIcon" placeholder="[shop]"></label>
+      <menu>
+        <button value="cancel" class="secondary">Cancel</button>
+        <button id="saveCardBtn" value="default">Save</button>
+      </menu>
+    </form>
+  </dialog>
+
+  <dialog id="txDialog">
+    <form method="dialog" id="txForm">
+      <h3 id="txTitle">Adjust Balance</h3>
+      <div class="pillbox">
+        <button class="pill" data-act="Spend" type="button">Spend</button>
+        <button class="pill" data-act="Reload" type="button">Reload</button>
+      </div>
+      <input type="hidden" id="txAction" value="Spend">
+      <label>Amount* <input id="txAmount" type="number" step="0.01" required></label>
+      <label>Note <input id="txNote"></label>
+      <menu>
+        <button value="cancel" class="secondary">Cancel</button>
+        <button id="txApplyBtn" value="default">Apply</button>
+      </menu>
+    </form>
+  </dialog>
+
+  <footer>
+    <small>All data is local to your browser (offline-ready). Export JSON or CSV anytime for backup.</small>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
